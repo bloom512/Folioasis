@@ -145,10 +145,10 @@ function AddPlant({ supabase, user }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="max-w-2xl mx-auto"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.5 }}
+        className="max-w-2xl mx-auto min-h-screen pb-20"
     >
       <button
         onClick={() => navigate('/admin')}
@@ -161,7 +161,7 @@ function AddPlant({ supabase, user }) {
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8"
+        className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8 overflow-y-auto max-h-[calc(100vh-120px)]"
       >
         <h2 className="text-3xl font-serif-sc font-bold text-gray-900 mb-6">添加植物</h2>
 
