@@ -79,6 +79,29 @@ function Home({ supabase }) {
     return lastWatered.getTime() === today.getTime();
   };
 
+  // 显示Toast提示
+  const showToast = (message, type = 'info') => {
+    // 创建toast元素
+    const toast = document.createElement('div');
+    
+    // 设置样式
+    let bgColor = 'bg-blue-500'; // 默认蓝色
+    if (type === 'success' || type === 'green') bgColor = 'bg-green-500';
+    if (type === 'error' || type === 'red') bgColor = 'bg-red-500';
+    if (type === 'warning' || type === 'yellow') bgColor = 'bg-yellow-500';
+    
+    toast.className = `fixed bottom-4 right-4 ${bgColor} text-white px-4 py-2 rounded shadow-lg z-50`;
+    toast.textContent = message;
+    
+    // 添加到页面
+    document.body.appendChild(toast);
+    
+    // 3秒后移除
+    setTimeout(() => {
+      toast.remove();
+    }, 3000);
+  };
+
   // 浇花打卡
   const waterPlant = async (plantId) => {
     // 防止重复点击
@@ -105,7 +128,7 @@ function Home({ supabase }) {
       if (recordError) throw recordError
 
       if (existingRecords && existingRecords.length > 0) {
-        alert('今天浇水了，明天再来吧~');
+        showToast('今天浇水了，明天再来吧~', 'yellow');
         return;
       }
 
@@ -124,7 +147,7 @@ function Home({ supabase }) {
         throw insertError;
       }
       console.log('浇花记录插入成功:', insertedRecord);
-      alert('浇花记录插入成功!');
+      showToast('浇花记录插入成功!', 'green');
 
       // 获取当前浇水次数
       const { data: plantWithCount, error: countError } = await supabase
@@ -147,16 +170,16 @@ function Home({ supabase }) {
 
       if (updateError) {
         console.error('更新植物数据失败:', updateError);
-        alert('更新植物数据失败: ' + updateError.message);
+        showToast('更新植物数据失败: ' + updateError.message, 'red');
         throw updateError;
       }
       console.log('植物数据更新成功');
-      alert('植物数据更新成功!');
+      showToast('植物数据更新成功!', 'green');
 
-      alert('开始重新获取植物数据...');
+      showToast('更新植物数据...', 'blue');
       fetchPlants();
       console.log('植物数据重新获取成功');
-      alert('植物数据重新获取成功!');
+      showToast('植物数据更新成功!', 'green');
 
       // 局部更新植物数据（双重保险）
       setPlants(plants.map(plant => {
@@ -173,10 +196,10 @@ function Home({ supabase }) {
       console.log(`植物 ${plantId} 浇水成功，已更新状态`);
 
       // 显示成功提示
-      alert('浇花成功!')
+      showToast('浇花成功!', 'green');
     } catch (err) {
       console.error('Error watering plant:', err)
-      alert('浇花失败: ' + err.message)
+      showToast('浇花失败: ' + err.message, 'red');
     } finally {
       // 无论成功失败，都清除加载状态
       setWateringInProgress(prev => ({ ...prev, [plantId]: false }))

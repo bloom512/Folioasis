@@ -108,7 +108,16 @@ function PlantDetail({ supabase }) {
       await fetchPlant()
 
       // 显示成功提示
-      alert('浇花成功! 当前浇水次数: ' + newWateringCount)
+      // 使用简单提示代替alert，确保只显示一次
+      const successMessage = document.createElement('div');
+      successMessage.className = 'fixed bottom-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow-lg z-50';
+      successMessage.textContent = '浇花成功! 当前浇水次数: ' + newWateringCount;
+      document.body.appendChild(successMessage);
+      
+      // 3秒后自动移除提示
+      setTimeout(() => {
+        successMessage.remove();
+      }, 3000);
     } catch (err) {
       console.error('Error watering plant:', err)
       alert('浇花失败: ' + err.message + '\n请查看控制台获取详细信息')
