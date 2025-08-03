@@ -1,0 +1,28 @@
+# 依赖项
+node_modules/
+
+# 构建输出
+dist/
+
+# 环境变量
+.env
+
+# 日志文件
+*.log
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+
+# IDE配置
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# 临时文件
+tmp/
+cache/

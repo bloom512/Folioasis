@@ -1,0 +1,130 @@
+:root {
+  --bg-washi: #F5F1EE; /* 和纸色 */
+  --bg-linen-gray: #E8E1D9; /* 亚麻灰 */
+  --color-moss-green: #A5C9B9; /* 苔藓绿 */
+  --color-moss-dark: #8DAF9F; /* 深苔藓绿 */
+  --color-text: #333333; /* 文本颜色 */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background-color: var(--bg-washi);
+  color: var(--color-text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'LXGW WenKai', serif;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 自定义按钮样式 */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 9999px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-moss {
+  background-color: var(--color-moss-green);
+  color: white;
+}
+
+.btn-moss:hover {
+  background-color: var(--color-moss-dark);
+  transform: scale(1.05);
+}
+
+.btn-moss:active {
+  transform: scale(0.95);
+}
+
+.btn-green {
+  background-color: var(--color-moss-green);
+  color: white;
+}
+
+.btn-green:hover {
+  background-color: var(--color-moss-dark);
+  transform: scale(1.05);
+}
+
+.btn-green:active {
+  transform: scale(0.95);
+}
+
+.btn-gray {
+  background-color: #e5e7eb;
+  color: #6b7280;
+}
+
+.btn-gray:hover {
+  background-color: #d1d5db;
+}
+
+.btn-gray:active {
+  transform: scale(0.95);
+}
+
+.btn-gray:hover {
+  background-color: #d1d5db;
+}
+
+.btn-gray:active {
+  transform: scale(0.95);
+}
+
+/* 卡片样式 */
+.card {
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 12px rgba(165, 201, 185, 0.15);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+/* 图片样式 */
+.img-plant {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.375rem;
+  transition: transform 0.3s ease;
+  object-position: center;
+}
+
+.img-plant:hover {
+  transform: scale(1.03);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 0.5rem;
+  }
+}
