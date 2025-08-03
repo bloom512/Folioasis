@@ -13,6 +13,7 @@
     "@fontsource/ibm-plex-sans": "^5.2.6",
     "@fontsource/lxgw-wenkai": "^5.2.5",
     "@supabase/supabase-js": "^2.45.1",
+    "browser-image-compression": "^2.0.2",
     "dotenv": "^17.2.1",
     "font-awesome": "^4.7.0",
     "framer-motion": "^11.3.24",

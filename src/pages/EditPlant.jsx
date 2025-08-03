@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import imageCompression from 'browser-image-compression'
 
 function EditPlant({ supabase }) {
   const { id } = useParams()
@@ -55,8 +56,36 @@ function EditPlant({ supabase }) {
   }
 
   // 处理文件上传变化
-  const handleFileChange = (e) => {
-    setImageFile(e.target.files[0])
+  const handleFileChange = async (e) => {
+    if (!e.target.files || !e.target.files[0]) return
+
+    const file = e.target.files[0]
+    console.log('原始文件大小:', file.size / 1024, 'KB')
+
+    // 图片压缩选项
+    const options = {
+      maxSizeMB: 0.5, // 最大500KB
+      maxWidthOrHeight: 1200, // 最大宽度/高度
+      useWebWorker: true, // 使用Web Worker提高性能
+      fileType: file.type, // 保持原始文件类型
+      initialQuality: 0.9, // 初始质量(高质量)
+      alwaysKeepResolution: true // 保持分辨率
+    }
+
+    try {
+      // 压缩图片
+      const compressedFile = await imageCompression(file, options)
+      console.log('压缩后文件大小:', compressedFile.size / 1024, 'KB')
+
+      // 设置压缩后的文件
+      setImageFile(compressedFile)
+      setSuccess('图片已压缩上传')
+    } catch (error) {
+      console.error('图片压缩失败:', error)
+      setError('图片压缩失败，请重试')
+      // 回退到使用原始文件
+      setImageFile(file)
+    }
   }
 
   // 验证表单
@@ -162,7 +191,7 @@ function EditPlant({ supabase }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="max-w-2xl mx-auto"
+      className="max-w-2xl mx-auto min-h-screen pb-20"
     >
       <button
         onClick={() => navigate('/admin')}
@@ -172,11 +201,11 @@ function EditPlant({ supabase }) {
       </button>
 
       <motion.div
-        initial={{ y: 20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.5, delay: 0.2 }}
-        className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8"
-      >
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 md:p-8 overflow-y-auto max-h-[calc(100vh-120px)]"
+        >
         <h2 className="text-3xl font-serif-sc font-bold text-gray-900 mb-6">编辑植物</h2>
 
         {error && (
